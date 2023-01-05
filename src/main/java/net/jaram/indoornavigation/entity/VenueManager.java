@@ -9,21 +9,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-import java.util.Date;
-
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Entity
-public class Beacon implements Serializable {
+public class VenueManager {
     @Id
-    private String uuid;
+    @GeneratedValue
+    private Long id;
 
     @Getter
     @Column(nullable = false)
-    private Date createdAt;
-
-    @Getter
-    @Column(nullable = false)
-    private Date updatedAt;
+    private Boolean isChief;
 }

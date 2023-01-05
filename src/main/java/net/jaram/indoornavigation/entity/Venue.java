@@ -36,6 +36,11 @@ public class Venue {
     private Set<Shop> shops;
 
     @Getter
+    @OneToMany
+    @JoinColumn(name="venue_id", nullable = false)
+    private Set<VenueManager> venueManagers;
+
+    @Getter
     @Column(nullable = false)
     private Date createdAt;
 
