@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.SecurityFilterChain;
 
 @RequiredArgsConstructor
-@EnableWebSecurity // spring security 설정을 활성화시켜주는 어노테이션
+@EnableWebSecurity
 public class SecurityConfig {
     private final OAuthService oAuthService;
 
