@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Entity
-public class VenueManager {
+public class VenueManager extends BaseTimeEntity {
     @Id
     @GeneratedValue
     private Long id;
