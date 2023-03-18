@@ -1,28 +1,35 @@
 package net.jaram.indoornavigation.entity;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Builder
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 public class Beacon implements Serializable {
     @Id
     private String uuid;
 
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "venue_id")
+    private Venue venue;
+
     @Getter
-    @Column(nullable = false)
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
     private Date createdAt;
 
     @Getter
-    @Column(nullable = false)
+    @LastModifiedDate
+    @Column(nullable = false, updatable = false)
     private Date updatedAt;
 }

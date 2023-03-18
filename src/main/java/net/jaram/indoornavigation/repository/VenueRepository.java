@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface VenueRepository extends JpaRepository<Venue, Long> {
-    Optional<Venue> findById(String id);
+    Optional<Venue> findByBeacons(String beaconId);
     List<Venue> findAll();
 }

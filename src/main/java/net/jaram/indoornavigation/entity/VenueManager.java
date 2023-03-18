@@ -1,13 +1,8 @@
 package net.jaram.indoornavigation.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import javax.persistence.*;
+
+import lombok.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -20,4 +15,9 @@ public class VenueManager {
     @Getter
     @Column(nullable = false)
     private Boolean isChief;
+
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "venue_id")
+    private Venue venue;
 }
