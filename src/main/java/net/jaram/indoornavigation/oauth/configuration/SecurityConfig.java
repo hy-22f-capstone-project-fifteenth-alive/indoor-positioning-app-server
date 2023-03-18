@@ -17,18 +17,18 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable() // h2 console 접속을 위해
-                .headers().frameOptions().disable() // h2 console 접속을 위해
+        http.csrf().disable()
+                .headers().frameOptions().disable()
                 .and()
                 .authorizeHttpRequests()
                     .antMatchers("/api/v1/**").authenticated()
                 .and()
-//                .exceptionHandling()
-//                    .authenticationEntryPoint((request, response, authException) -> response.setStatus(HttpStatus.UNAUTHORIZED.value()))
-//                .and()
-                .oauth2Login() // OAuth2 로그인 설정 시작점
-                    .userInfoEndpoint() // OAuth2 로그인 성공 이후 사용자 정보를 가져올 때 설정 담당
-                    .userService(oAuthService); // OAuth2 로그인 성공 시, 후작업을 진행할 UserService 인터페이스 구현체 등록
+                .exceptionHandling()
+                    .authenticationEntryPoint((request, response, authException) -> response.setStatus(HttpStatus.UNAUTHORIZED.value()))
+                .and()
+                .oauth2Login()
+                    .userInfoEndpoint()
+                    .userService(oAuthService);
         return http.build();
     }
 
