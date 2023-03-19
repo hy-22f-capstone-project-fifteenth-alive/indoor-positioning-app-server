@@ -1,9 +1,9 @@
 package net.jaram.indoornavigation.configuration;
 
 import lombok.RequiredArgsConstructor;
-import net.jaram.indoornavigation.entity.Beacon;
-import net.jaram.indoornavigation.entity.Shop;
-import net.jaram.indoornavigation.entity.Venue;
+import net.jaram.indoornavigation.domain.Beacon;
+import net.jaram.indoornavigation.domain.Shop;
+import net.jaram.indoornavigation.domain.Venue;
 import net.jaram.indoornavigation.repository.VenueRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +16,7 @@ public class DumpDataConfiguration implements CommandLineRunner {
     private final VenueRepository venueRepository;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         Venue venue1 = Venue.builder()
                 .venueName("한양대학교 ERICA 캠퍼스 3공학관")
                 .description("한양대학교 ERICA 캠퍼스 3공학관입니다.")

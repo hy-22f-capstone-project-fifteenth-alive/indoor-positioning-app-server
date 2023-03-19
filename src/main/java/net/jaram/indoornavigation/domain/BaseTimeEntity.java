@@ -1,4 +1,4 @@
-package net.jaram.indoornavigation.entity;
+package net.jaram.indoornavigation.domain;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

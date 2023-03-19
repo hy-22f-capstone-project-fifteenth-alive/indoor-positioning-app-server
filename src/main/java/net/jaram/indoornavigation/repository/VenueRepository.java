@@ -1,7 +1,6 @@
 package net.jaram.indoornavigation.repository;
 
-import net.jaram.indoornavigation.entity.Venue;
-import net.jaram.indoornavigation.oauth.domain.Member;
+import net.jaram.indoornavigation.domain.Venue;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

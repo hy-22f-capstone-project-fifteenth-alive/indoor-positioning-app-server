@@ -1,4 +1,4 @@
-package net.jaram.indoornavigation.entity;
+package net.jaram.indoornavigation.domain;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

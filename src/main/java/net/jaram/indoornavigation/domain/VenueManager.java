@@ -1,28 +1,23 @@
-package net.jaram.indoornavigation.entity;
-
-import lombok.*;
+package net.jaram.indoornavigation.domain;
 
 import javax.persistence.*;
 
+import lombok.*;
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Builder
 @Entity
-public class Shop extends BaseTimeEntity {
+public class VenueManager extends BaseTimeEntity {
     @Id
     @GeneratedValue
     private Long id;
 
     @Getter
     @Column(nullable = false)
-    private String shopName;
+    private Boolean isChief;
 
     @Setter
     @ManyToOne
     @JoinColumn(name = "venue_id")
     private Venue venue;
-
-    @Getter
-    @Column(nullable = false)
-    private String description;
 }
