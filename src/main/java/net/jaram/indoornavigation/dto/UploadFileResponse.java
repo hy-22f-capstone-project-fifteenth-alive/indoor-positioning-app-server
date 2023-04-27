@@ -12,8 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class VenueResponse {
-    private Long id;
-    private String name;
-    private String description;
+public class UploadFileResponse {
+    String fileName;
+    String fileDownloadUri;
+    String fileType;
+    Long size;
 }
