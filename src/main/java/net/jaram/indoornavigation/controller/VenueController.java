@@ -1,13 +1,14 @@
 package net.jaram.indoornavigation.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import net.jaram.indoornavigation.domain.Venue;
 import net.jaram.indoornavigation.domain.VenueMapData;
 import net.jaram.indoornavigation.dto.UploadFileResponse;
+import net.jaram.indoornavigation.dto.VenueResponse;
 import net.jaram.indoornavigation.repository.VenueMapDataRepository;
 import net.jaram.indoornavigation.repository.VenueRepository;
 import net.jaram.indoornavigation.service.FileService;
-import net.jaram.indoornavigation.dto.VenueResponse;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -31,16 +32,35 @@ public class VenueController {
     private final VenueRepository venueRepository;
     private final VenueMapDataRepository venueMapDataRepository;
 
+    @Operation(summary = "Venue 리스트 정보 조회")
     @GetMapping
-    ResponseEntity<List<VenueResponse>> getVenueByBeaconId(@RequestParam String beaconId) {
-        return new ResponseEntity<>(HttpStatus.OK);
+    ResponseEntity<List<VenueResponse>> getVenueList() {
+        List<VenueResponse> venueResponseList = venueRepository.findAll()
+                .stream()
+                .map(VenueResponse::new)
+                .toList();
+
+        return ResponseEntity.ok().body(venueResponseList);
     }
 
-    @PostMapping("/map")
+    @Operation(summary = "특정 Venue 정보 조회")
+    @GetMapping("/{venue_id}")
+    ResponseEntity<Optional<VenueResponse>> getVenue(@PathVariable(name = "venue_id") Long venueId) {
+        Optional<VenueResponse> venueResponse = venueRepository.findById(venueId)
+                .map(VenueResponse::new);
+
+        if (venueResponse.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok().body(venueResponse);
+    }
+
+    @Operation(summary = "특정 Venue IMDF 파일 업로드")
+    @PostMapping(value = "/{venue_id}/map", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public UploadFileResponse uploadFile(
-            @RequestParam("file") MultipartFile file,
-            @RequestParam("venue_id") Long venueId
-            ) {
+            @PathVariable("venue_id") Long venueId,
+            @RequestParam("file") MultipartFile file
+    ) {
         UploadFileResponse uploadFileResponse;
         Venue venue = venueRepository.findById(venueId).orElseThrow(RuntimeException::new);
 
@@ -60,9 +80,10 @@ public class VenueController {
         return uploadFileResponse;
     }
 
-    @GetMapping(path = "/map")
+    @Operation(summary = "특정 Venue IMDF 파일 다운로드")
+    @GetMapping(path = "/{venue_id}/map")
     public ResponseEntity<ByteArrayResource> getVenueMapData(
-            @RequestParam(name="venue_id") Long venueId,
+            @PathVariable(name = "venue_id") Long venueId,
             @RequestParam(required = false) Optional<String> version
     ) {
         Venue venue = venueRepository.findById(venueId).orElseThrow(RuntimeException::new);

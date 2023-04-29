@@ -12,6 +12,7 @@ import java.util.*;
 public class Venue extends BaseTimeEntity {
     @Id
     @GeneratedValue
+    @Getter
     private Long id;
 
     @Getter
