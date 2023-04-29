@@ -37,6 +37,11 @@ public class Venue extends BaseTimeEntity {
     @Builder.Default
     private Set<VenueManager> venueManagers = new HashSet<>();
 
+    @Getter
+    @OneToMany(mappedBy = "venue", cascade = CascadeType.ALL)
+    @Builder.Default
+    private Set<VenueMapData> venueMapDataSet = new HashSet<>();
+
     public void addBeacon(Beacon beacon){
         beacons.add(beacon);
         beacon.setVenue(this);
@@ -50,5 +55,10 @@ public class Venue extends BaseTimeEntity {
     public void addVenueManager(VenueManager venueManager){
         venueManagers.add(venueManager);
         venueManager.setVenue(this);
+    }
+
+    public void addVenueMapData(VenueMapData venueMapData) {
+        venueMapDataSet.add(venueMapData);
+        venueMapData.setVenue(this);
     }
 }

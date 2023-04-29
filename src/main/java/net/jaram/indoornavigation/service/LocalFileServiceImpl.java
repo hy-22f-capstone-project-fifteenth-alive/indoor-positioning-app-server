@@ -5,7 +5,6 @@ import net.jaram.indoornavigation.dto.UploadFileResponse;
 import net.jaram.indoornavigation.exception.FileStorageException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,7 +15,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -34,9 +32,9 @@ public class LocalFileServiceImpl implements FileService {
     }
 
     @Override
-    public UploadFileResponse upload(MultipartFile file) {
+    public UploadFileResponse upload(MultipartFile file, String fileName) {
         UploadFileResponse uploadFileResponse;
-        String fileName = storeFile(file);
+        fileName = storeFile(file, fileName);
         try {
             if (fileName.equals("")) {
                 throw new Exception("The file name does not exist.");
@@ -54,8 +52,8 @@ public class LocalFileServiceImpl implements FileService {
         return uploadFileResponse;
     }
 
-    public String storeFile(MultipartFile file) {
-        String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+    public String storeFile(MultipartFile file, String fileName) {
+        fileName = StringUtils.cleanPath(fileName);
         try {
             if (fileName.contains("..")) {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);

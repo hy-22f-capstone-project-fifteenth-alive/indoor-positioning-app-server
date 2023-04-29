@@ -30,7 +30,7 @@ public class FileS3ServiceImpl implements FileService {
     private final AmazonS3Client amazonS3Client;
 
     @Override
-    public UploadFileResponse upload(MultipartFile file) throws IOException{
+    public UploadFileResponse upload(MultipartFile file, String fileName) throws IOException{
         return uploadOnS3(file);
     }
     @Override
