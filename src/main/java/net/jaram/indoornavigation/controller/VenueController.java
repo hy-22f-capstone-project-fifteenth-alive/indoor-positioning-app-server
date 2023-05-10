@@ -95,17 +95,21 @@ public class VenueController {
             venueMapData = venueMapDataRepository.findFirstByVenueAndUuid(venue, version.get());
         }
 
-        try {
-            byte[] data = fileService.download(venueMapData.orElseThrow(RuntimeException::new).getUuid());
-            ByteArrayResource resource = new ByteArrayResource(data);
-            return ResponseEntity
-                    .ok()
-                    .contentLength(data.length)
-                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                    .header("Content-disposition", "attachment; filename=\"" + URLEncoder.encode(venueMapData.get().getUuid() + ".imdf", StandardCharsets.UTF_8) + "\"")
-                    .body(resource);
-        } catch (IOException ex) {
-            return ResponseEntity.badRequest().contentLength(0).body(null);
+        if (venueMapData.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            try {
+                byte[] data = fileService.download(venueMapData.get().getUuid());
+                ByteArrayResource resource = new ByteArrayResource(data);
+                return ResponseEntity
+                        .ok()
+                        .contentLength(data.length)
+                        .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                        .header("Content-disposition", "attachment; filename=\"" + URLEncoder.encode(venueMapData.get().getUuid() + ".imdf", StandardCharsets.UTF_8) + "\"")
+                        .body(resource);
+            } catch (IOException ex) {
+                return ResponseEntity.badRequest().contentLength(0).body(null);
+            }
         }
     }
 }
