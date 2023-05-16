@@ -22,7 +22,9 @@ public class DumpDataConfiguration implements CommandLineRunner {
                 .description("한양대학교 ERICA 캠퍼스 3공학관입니다.")
                 .build();
         Beacon beacon1 = Beacon.builder()
-                .uuid("568aa15b-0e3c-4bb2-8a48-1c882893b36c")
+                .major(10001L)
+                .minor(19641L)
+                .floor("1")
                 .build();
         Shop shop1 = Shop.builder()
                 .shopName("웹실")
