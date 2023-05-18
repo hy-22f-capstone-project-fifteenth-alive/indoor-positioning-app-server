@@ -11,9 +11,11 @@ import javax.persistence.*;
 public class Shop extends BaseTimeEntity {
     @Id
     @GeneratedValue
+    @Getter
     private Long id;
 
     @Getter
+    @Setter
     @Column(nullable = false)
     private String shopName;
 
@@ -23,6 +25,7 @@ public class Shop extends BaseTimeEntity {
     private Venue venue;
 
     @Getter
+    @Setter
     @Column(nullable = false)
     private String description;
 }

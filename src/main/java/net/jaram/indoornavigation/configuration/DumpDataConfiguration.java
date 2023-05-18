@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import net.jaram.indoornavigation.domain.Beacon;
 import net.jaram.indoornavigation.domain.Shop;
 import net.jaram.indoornavigation.domain.Venue;
+import net.jaram.indoornavigation.domain.VenueMapData;
 import net.jaram.indoornavigation.repository.VenueRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -30,8 +31,13 @@ public class DumpDataConfiguration implements CommandLineRunner {
                 .shopName("웹실")
                 .description("소프트웨어 전공 학회 자람의 학회방입니다.")
                 .build();
+        VenueMapData map1 = VenueMapData.builder()
+                .uuid("555aa55b-0e3c-4bb2-8a48-1c882893b36c")
+                .size(500L)
+                .build();
         venue1.addBeacon(beacon1);
         venue1.addShop(shop1);
+        venue1.addVenueMapData(map1);
         venueRepository.save(venue1);
     }
 }
