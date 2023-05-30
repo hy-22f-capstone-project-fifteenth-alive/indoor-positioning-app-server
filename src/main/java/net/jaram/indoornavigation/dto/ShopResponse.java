@@ -14,13 +14,15 @@ import net.jaram.indoornavigation.domain.Shop;
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ShopResponse {
-    private Long id;
+    private String uuid;
     private String name;
+    private int floor;
     private String description;
 
     public ShopResponse(Shop shop) {
-        id = shop.getId();
+        uuid = shop.getUuid();
         name = shop.getShopName();
+        floor = shop.getFloor();
         description = shop.getDescription();
     }
 }

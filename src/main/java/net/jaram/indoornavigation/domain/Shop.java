@@ -10,14 +10,17 @@ import javax.persistence.*;
 @Entity
 public class Shop extends BaseTimeEntity {
     @Id
-    @GeneratedValue
     @Getter
-    private Long id;
+    private String uuid;
 
     @Getter
     @Setter
     @Column(nullable = false)
     private String shopName;
+
+    @Getter
+    @Column(nullable = false)
+    private Integer floor;
 
     @Setter
     @ManyToOne
